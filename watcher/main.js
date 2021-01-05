@@ -2,13 +2,24 @@ const fs = require('fs-extra')
 const chokidar = require('chokidar')
 const path = require('path')
 
-getDistPath = function(srcPath) {
-    return path.join("./public/_/_/", srcPath)
+let getDistPath, watch_target_dir
+
+if (process.argv[2] == "prd") {
+    getDistPath = function(srcPath) {
+        return path.join("./public/_/_/", srcPath)
+    }
+    watch_target_dir = '../../course'
+} else {
+    getDistPath = function(srcPath) {
+        return path.join("./public/", srcPath)
+    }
+    watch_target_dir = './course'
 }
+
 
 fs.removeSync("./public/course")
 
-chokidar.watch('../../course')
+chokidar.watch(watch_target_dir)
     .on('add', function(srcPath) {
         var distPath = getDistPath(srcPath)
         console.log("ADD", srcPath, distPath)
