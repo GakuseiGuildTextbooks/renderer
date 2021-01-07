@@ -11,6 +11,7 @@
 </template>
 <script>
 import marked from 'marked'
+import hljs from 'highlight.js'
 export default {
   props: {
     chat: Object,
@@ -45,7 +46,7 @@ export default {
   }
 }
 </script>
-<style src='highlightjs/styles/github-gist.css'></style>
+<style src='highlight.js/styles/github-gist.css'></style>
 <style lang="scss">
   .image {
     max-width: 100%;
