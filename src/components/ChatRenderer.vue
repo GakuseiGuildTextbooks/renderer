@@ -33,7 +33,11 @@ export default {
     compile: function(data) {
       marked.setOptions({
         renderer: this.renderer,
-        breaks: true
+        breaks: true,
+        langPrefix: '',
+        highlight: function(code, lang) {
+          return hljs.highlightAuto(code, [lang]).value
+        }
       })
       const compileHTML = marked(data)
       return compileHTML
@@ -41,6 +45,7 @@ export default {
   }
 }
 </script>
+<style src='highlightjs/styles/github-gist.css'></style>
 <style lang="scss">
   .image {
     max-width: 100%;
