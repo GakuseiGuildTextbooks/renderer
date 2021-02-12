@@ -4,13 +4,18 @@
     <p class="author">{{ parsedSrc.env.author }}</p>
     <div v-for="doc in parsedSrc.docs" :key="doc.title">
       <h2>{{ doc.title }}</h2>
-      <div v-for="chat in doc.chats">
+      <div v-for="chat in doc.chats" :key="chat">
         <div v-if="chat.speaker[0] == '*'" class="system">
           <div class="system-text">
             <div class="system-text-inner">
               <ChatRenderer :chat="chat" :assets="illustrationAssets"/>
             </div>
           </div>
+        </div>
+        <div v-else-if="typeof charas[chat.speaker[0]] === 'undefined'" class="error">
+          <div class="error-title">エラー: 「{{ chat.speaker[0] }}」というキャラクター名がDhonfileに定義されていません．</div>
+          Dhonfileの該当メッセージのキャラクター名を今一度ご確認ください．<br/>
+          または，「{{ chat.speaker[0] }}」というキャラクターを登録してください．
         </div>
         <div v-else-if="charas[chat.speaker[0]].position == '左'" class="chat">
           <div class="chat-box chat-box-left">
@@ -131,6 +136,18 @@ export default {
   }
   .author {
     text-align: right;
+  }
+  .error {
+    padding: 16px;
+    width: 100%;
+    background: #EF5350;
+    color: #FFFFFF;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 12px 0 rgba(0,0,128,.15);
+    &-title {
+      font-size: 1.2em;
+    }
   }
   .chat {
     display: flex;
