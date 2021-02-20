@@ -42,7 +42,7 @@ const dhon_loader = ((dihn) => {
                     break;
                 }
                 
-                const chat_line = line.match(/^([^\s]*)\s*:\s*(.*)$/)
+                const chat_line = line.match(/^([^\s]*)\s*:\s?(.*)$/)
                 if (chat_line !== null) {
                     if (chat_line[1] !== "" || chat === null) {
                         if (doc === null) add_doc("");
