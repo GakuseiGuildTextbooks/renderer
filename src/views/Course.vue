@@ -67,7 +67,7 @@ import axios from 'axios'
         let lessons = res.data.filter((item) => {
           return 	/^\d*$/.test(item)
         })
-        lessons = lessons.map((item) => Number(item))
+        lessons = lessons.map((item) => Number(item)).sort((a, b) => a - b)
         this.lessons = lessons
       })
     }
